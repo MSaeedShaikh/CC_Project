@@ -85,8 +85,8 @@ After installing:
 
 **1. Clone and create virtual environment**
 ```powershell
-git clone https://github.com/MSaeedShaikh/url-shortener.git
-cd url-shortener
+git clone https://github.com/MSaeedShaikh/CC_Project.git
+cd CC_Project
 
 python -m venv venv
 venv\Scripts\activate
