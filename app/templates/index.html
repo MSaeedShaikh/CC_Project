@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block title %}ShortURL — Shorten any link{% endblock %}
+
+{% block content %}
+<div class="text-center mb-10">
+  <h1 class="text-4xl font-extrabold text-gray-900 dark:text-white mb-3">Shorten. Share. Track.</h1>
+  <p class="text-gray-500 dark:text-gray-400 text-lg">Turn long URLs into clean short links with analytics built in.</p>
+</div>
+
+<div class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-8">
+  <form action="/shorten" method="POST" class="space-y-5">
+    <input type="hidden" name="tz_offset" id="tz_offset">
+
+    <div>
+      <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">Long URL <span class="text-red-400">*</span></label>
+      <input type="text" name="url" required placeholder="https://example.com/very/long/link"
+        class="w-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">
+          Custom slug <span class="text-gray-400 font-normal">(optional)</span>
+        </label>
+        <div class="flex items-center border border-gray-300 dark:border-gray-700 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-indigo-400">
+          <span class="px-3 py-3 bg-gray-50 dark:bg-gray-800 text-gray-400 dark:text-gray-500 text-sm border-r border-gray-300 dark:border-gray-700 select-none">short/</span>
+          <input type="text" name="custom_slug" placeholder="my-link"
+            class="flex-1 px-3 py-3 text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none">
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">
+          Expires at <span class="text-gray-400 font-normal">(optional)</span>
+        </label>
+        <input type="datetime-local" name="expires_at" id="expires-input"
+          class="w-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
+      </div>
+    </div>
+
+    <button type="submit"
+      class="w-full bg-indigo-600 text-white font-semibold py-3 rounded-xl hover:bg-indigo-700 active:scale-95 transition text-sm">
+      Shorten URL
+    </button>
+  </form>
+
+  {% if short_url %}
+  <div class="mt-6 p-5 bg-indigo-50 dark:bg-indigo-950/50 rounded-xl border border-indigo-200 dark:border-indigo-800">
+    <p class="text-xs font-semibold text-indigo-400 uppercase tracking-wider mb-2">Your short link</p>
+    <div class="flex items-center justify-between gap-4 flex-wrap">
+      <a href="{{ short_url }}" target="_blank"
+        class="text-indigo-700 dark:text-indigo-400 font-bold text-lg break-all hover:underline">{{ short_url }}</a>
+      <div class="flex gap-2">
+        <button type="button" data-url="{{ short_url }}" onclick="navigator.clipboard.writeText(this.dataset.url)"
+          class="text-xs bg-white dark:bg-gray-800 border border-indigo-200 dark:border-indigo-700 text-indigo-600 dark:text-indigo-400 px-3 py-1.5 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition">
+          Copy
+        </button>
+        <button type="button" onclick="showQR('{{ short_code }}')"
+          class="text-xs bg-white dark:bg-gray-800 border border-indigo-200 dark:border-indigo-700 text-indigo-600 dark:text-indigo-400 px-3 py-1.5 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition">
+          QR Code
+        </button>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+<div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+  <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6">
+    <div class="text-2xl mb-2">🔗</div>
+    <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-1">Custom slugs</h3>
+    <p class="text-sm text-gray-500 dark:text-gray-400">Choose your own short link alias</p>
+  </div>
+  <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6">
+    <div class="text-2xl mb-2">📊</div>
+    <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-1">Click analytics</h3>
+    <p class="text-sm text-gray-500 dark:text-gray-400">Track clicks, timestamps, and referrers</p>
+  </div>
+  <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6">
+    <div class="text-2xl mb-2">⏱️</div>
+    <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-1">Expiry links</h3>
+    <p class="text-sm text-gray-500 dark:text-gray-400">Set links to expire automatically</p>
+  </div>
+</div>
+
+{% include '_qr_modal.html' %}
+
+<script>
+  function syncDateColorScheme() {
+    const input = document.getElementById('expires-input');
+    if (input) {
+      input.style.colorScheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+    }
+  }
+  syncDateColorScheme();
+
+  const _origToggle = window.toggleTheme;
+  window.toggleTheme = function() { _origToggle(); syncDateColorScheme(); };
+
+  document.querySelector('form').addEventListener('submit', function() {
+    document.getElementById('tz_offset').value = new Date().getTimezoneOffset();
+  });
+</script>
+{% endblock %}

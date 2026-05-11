@@ -1,0 +1,42 @@
+<div id="qr-modal" class="hidden fixed inset-0 z-50 items-center justify-center"
+  style="transition: opacity 200ms ease;">
+  <div class="absolute inset-0 bg-black/50 dark:bg-black/70" onclick="closeQR()"></div>
+  <div class="relative bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-800 p-8 flex flex-col items-center gap-5 z-10 w-72">
+    <h3 class="text-base font-bold text-gray-800 dark:text-gray-200">QR Code</h3>
+    <img id="qr-img" src="" alt="QR Code" class="w-48 h-48 rounded-lg border border-gray-200 dark:border-gray-700">
+    <div class="flex gap-3 w-full">
+      <a id="qr-download" href="" download="qr.png"
+        class="flex-1 text-center bg-indigo-600 text-white font-semibold py-2 rounded-xl hover:bg-indigo-700 transition text-sm">
+        Download
+      </a>
+      <button type="button" onclick="closeQR()"
+        class="flex-1 border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-300 font-semibold py-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition text-sm">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function showQR(code) {
+    const url = `/qr/${code}`;
+    document.getElementById('qr-img').src = url;
+    document.getElementById('qr-download').href = url;
+    document.getElementById('qr-download').download = `${code}.png`;
+    const modal = document.getElementById('qr-modal');
+    modal.style.opacity = '0';
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    requestAnimationFrame(() => { modal.style.opacity = '1'; });
+  }
+
+  function closeQR() {
+    const modal = document.getElementById('qr-modal');
+    modal.style.opacity = '0';
+    setTimeout(() => {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.getElementById('qr-img').src = '';
+    }, 200);
+  }
+</script>

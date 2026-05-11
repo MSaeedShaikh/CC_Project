@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Login — ShortURL{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto">
+  <div class="text-center mb-8">
+    <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white">Welcome back</h2>
+    <p class="text-gray-500 dark:text-gray-400 mt-2 text-sm">Login to manage your links</p>
+  </div>
+
+  <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-8">
+    <form action="/login" method="POST" class="space-y-5">
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">Email</label>
+        <input type="email" name="email" required autofocus
+          class="w-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
+      </div>
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">Password</label>
+        <input type="password" name="password" required
+          class="w-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
+      </div>
+      <button type="submit"
+        class="w-full bg-indigo-600 text-white font-semibold py-3 rounded-xl hover:bg-indigo-700 active:scale-95 transition text-sm">
+        Login
+      </button>
+    </form>
+  </div>
+
+  <p class="mt-5 text-center text-sm text-gray-500 dark:text-gray-400">
+    No account?
+    <a href="/register" class="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline">Register here</a>
+  </p>
+</div>
+{% endblock %}
