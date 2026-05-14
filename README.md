@@ -2,12 +2,12 @@
 
 <div align="center">
 
-![Python](https://img.shields.io/badge/Python-3.12-FFD43B?style=for-the-badge&logo=python&logoColor=306998)
-![Flask](https://img.shields.io/badge/Flask-3.1-ffffff?style=for-the-badge&logo=flask&logoColor=000000)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-336791?style=for-the-badge&logo=postgresql&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-multi--stage-0db7ed?style=for-the-badge&logo=docker&logoColor=white)
-![GCP](https://img.shields.io/badge/Google_Cloud-Compute_Engine-4285F4?style=for-the-badge&logo=googlecloud&logoColor=white)
-![Tailwind](https://img.shields.io/badge/Tailwind_CSS-v4-38BDF8?style=for-the-badge&logo=tailwindcss&logoColor=white)
+<img src="https://img.shields.io/badge/Python-3.12-FFD43B?style=for-the-badge&logo=python&logoColor=306998" alt="Python">
+<img src="https://img.shields.io/badge/Flask-3.1-ffffff?style=for-the-badge&logo=flask&logoColor=000000" alt="Flask">
+<img src="https://img.shields.io/badge/PostgreSQL-15-336791?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL">
+<img src="https://img.shields.io/badge/Docker-multi--stage-0db7ed?style=for-the-badge&logo=docker&logoColor=white" alt="Docker">
+<img src="https://img.shields.io/badge/Google_Cloud-Compute_Engine-4285F4?style=for-the-badge&logo=googlecloud&logoColor=white" alt="GCP">
+<img src="https://img.shields.io/badge/Tailwind_CSS-v4-38BDF8?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind">
 
 **CE408 Cloud Computing Project**  
 Muhammad Saeed Shaikh (2022421) · Affan Khan (2022047)
